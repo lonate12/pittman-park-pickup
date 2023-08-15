@@ -1,0 +1,37 @@
+@startuml
+class User {
+    - userId: String
+    - firstName: String
+    - lastName: String
+    - email: String
+    - isAdmin: boolean
+}
+
+class Location {
+    - locationId: String
+    - name: String
+    - streetAddress: String
+    - city: String
+    - state: String
+    - zip: String
+}
+
+class Game {
+    - gameId: String
+    - location: Location
+    - date: DateTime
+    - time: DateTime
+    - rsvps: List<RSVP>
+}
+
+class RSVP {
+    - rsvpId: String
+    - player: User
+    - game: Game
+    - isAttending: boolean
+}
+
+Location "1" *-- "many" Game
+RSVP "1" --* "many" Game
+RSVP "many" --* "1" User
+@enduml
