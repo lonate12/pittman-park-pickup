@@ -13,8 +13,6 @@ the game is cancelled.
 
 ## 2. Top Questions to Resolve in Review
 
-1.  Most effective tech stack to use (read about benefits of Svelt for FE vs. React, advised to consider deploying via
-AppRunner on AWS, etc.)
 2. Do the classes of Users, Games, and RSVPs make sense? I'm I missing any more classes? Should location be a separate class?
 3. For users, we have players and admins, how do I efficiently distinguish between these two classes? Would it just be a
 member field in the user class (e.g. boolean isAdmin - true or false) and then display the frontend components accordingly?
@@ -98,7 +96,7 @@ U23. As an admin, I want to use something easy to use, like Google Maps, to help
 
 ### 4.1. In Scope
 
-There are X major problems that need to be solved for local pickup soccer games.
+There are 2 major problems that need to be solved for local pickup soccer games.
 
 First, during the summer months, when
 demand is high, it's unclear how many players will be attending and, because of that, it's not clear at what point the
@@ -112,7 +110,7 @@ Second, during the winter months when it's cold out, players don't really know i
 actually show up to the field. If not enough players show up, it could be a waste of a trip out to the field.
 
 Both these major problems can be solved with a basic RSVP system where admins create games and players can go in and RSVP
-for games so admins now, before hand, how many players to expect and can take action accordingly. In the example of the
+for games so admins know, before hand, how many players to expect and can take action accordingly. In the example of the
 first problem, admins can know whether two games would be appropriate from the beginning and set up two fields and make
 sure people split up from the beginning. In the example of the second problem, admins and players can see if enough
 players will show up and can make the determination to continue with the game or go ahead and cancel it.
@@ -131,24 +129,8 @@ have the capacity to do more, I'd like to focus on the automated notifications/c
 
 # 5. Proposed Architecture Overview
 
-*Describe broadly how you are proposing to solve for the requirements you
-described in Section 3.*
-
-*This may include class diagram(s) showing what components you are planning to
-build.*
-
-*You should argue why this architecture (organization of components) is
-reasonable. That is, why it represents a good data flow and a good separation of
-concerns. Where applicable, argue why this architecture satisfies the stated
-requirements.*
-
-I'm not sure if I should outline the deployment architecture or the backend design, so I'll cover my thoughts for both.
-
-With regards to tech stack/deployment architecture, I'm leaning towards Svelt for the FE and Spring Boot for the BE.
-However, I'm still considering API Gateway/Lambda for the API. Would need help with the pros/cons of this. I'd like to
-leverage infrastructure as code via CloudFormation or Terraform, if it doesn't prove too burdensome. DynamoDB for
-the DB. It would be great if I could set up a basic CI/CD pipeline in order to easily deploy things as I make changes.
-However, I want to move fast, so if that proves to be too big of a hurdle to learn/overcome quickly, I can leave that piece.
+With regards to tech stack/deployment architecture, I'll use Svelt for the FE and Spring Boot for the BE. DynamoDB for
+the DB.
 
 # 6. API
 
@@ -162,7 +144,9 @@ Models would include:
 String userId
 String firstName
 String lastName
-boolean isAdmin
+String email
+String phoneNumber
+String role
 ```
 
 ```
@@ -170,29 +154,8 @@ boolean isAdmin
 
 String gameId
 Location location
-DateTime date
-DateTime time
-List<RSVP> rsvps
-```
-
-```
-// RSVPModel
-
-String rsvpId
-User player
-Game game
-boolean isAttending
-```
-
-```
-// LocationModel
-
-String locationId
-String name
-String address
-String city
-String state
-String zip
+DateTime datetime
+List<User> players
 ```
 
 ## 6.2. Get All Games Endpoint
@@ -220,44 +183,14 @@ String zip
   * If an invalid attribute is presented in the body, returns an `InvalidGameCriteriaException`
   * If it's an attempt to edit a game that's already happened, returns a `GameAlreadyHappenedException`
 
-## 6.6 Create Location Endpoint
-
-* Accepts a `POST` request at the `/locations` endpoint
-* Needs to have a body with valid attributes for the location: name, street address, city, state, zip
-  * If invalid or missing attribute is sent, returns an `InvalidLocationInputException`
-
-## 6.7 Create RSVP
-
-* Accepts a `POST` request at the `/games/:gameId/rsvps`
-* Expects a body with a userId and whether the player is attending
-  * If any of these attributes are missing or if they're invalid, returns an `InvalidRsvpInputException`
-  * If the game has already happened, returns a `GameAlreadyHappenedException`
-
-## 6.8 Get all RSVPs
-
-* Accepts a `GET` request at the `/games/:gameId/rsvps` endpoint
-* Returns a list of RSVPs for a specific game
-
-## 6.9 Get specific RSVP
-
-* Accepts a `GET` request at `/games/:gameId/rsvps/:rsvpId`
-* Returns a specific RSVP
-  * If an invalid rsvpId is sent, returns an `InvalidRsvpIdException`
-
-## 6.8 Edit specific RSVP
-
-* Accepts a `PUT` request at `/games/:gameId/rsvps/:rsvpId`
-* Needs to have an updated isAttending attribute in the body
-  * If there is an attempt to edit an RSVP for a game that's already happened, returns a `GameAlreadyHappenedException`
-
-## 6.9 Create User
+## 6.6 Create User
 
 * Accepts a `POST` request at `/players`
 * Expects a body with firstName, lastName, and email
   * If missing any of the above info, returns an `InvalidUserInputException`
 * Returns a new user with a userId along with the passed in attributes
 
-## 6.10 Edit User
+## 6.7 Edit User
 
 * Accepts a `PUT` request at the `/players/:playerId`
 * Expects a body with an updated firstName, lastName, and/or email
@@ -267,48 +200,27 @@ String zip
 
 # 7. Tables
 
-### 7.1. `players`
+### 7.1. `users`
 
 ```
-playerId // partition key, string
+userId // partition key, string
 firstName // string
 lastName // string
 email // string
-isAdmin // boolean
-```
-
-### 7.2 `locations`
-```
-locationId // partition key, string
-name // string
-streetAddress // string
-city // string
-state // string
-zipcode // string
+phoneNumber // string
+role // string
 ```
 
 ### 7.3 `games`
 ```
 gameId // partition key, string
+datetime // sort key, datetime
 location // string
-date // string (sort key?)
-time // string
-```
-
-### 7.4 `rsvps`
-```
-rsvpId // partition key, string
-game // sort key, string
-player // string
-isAttending // boolean
+players // list of strings
 ```
 
 # 8. Pages
 
-*Include mock-ups of the web pages you expect to build. These can be as
-sophisticated as mockups/wireframes using drawing software, or as simple as
-hand-drawn pictures that represent the key customer-facing components of the
-pages. It should be clear what the interactions will be on the page, especially
-where customers enter and submit data. You may want to accompany the mockups
-with some description of behaviors of the page (e.g. “When customer submits the
-submit-dog-photo button, the customer is sent to the doggie detail page”)*
+1. Login page
+2. Home page (list of all games)
+3. Game detail page
