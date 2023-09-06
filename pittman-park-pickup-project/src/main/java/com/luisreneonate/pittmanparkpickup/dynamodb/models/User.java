@@ -1,11 +1,15 @@
 package main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
 import java.util.Objects;
 import java.util.UUID;
 
-@DynamoDBTable(tableName = "user")
+@DynamoDBTable(tableName = "users")
 public class User {
-    private UUID userId;
+    private String userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -16,20 +20,19 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String phoneNumber) {
-        this.userId = UUID.randomUUID();
+        this.userId = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.role = this.email.equals("lonate12@gmail.com") ? "admin" : "player";
     }
 
     @DynamoDBHashKey(attributeName = "userId")
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -58,15 +61,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @DynamoDBAttribute(attributeName = "phoneNumber")
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     @DynamoDBAttribute(attributeName = "role")

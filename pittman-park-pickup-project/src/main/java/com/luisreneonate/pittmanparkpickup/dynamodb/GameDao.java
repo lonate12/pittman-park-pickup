@@ -1,11 +1,14 @@
 package main.java.com.luisreneonate.pittmanparkpickup.dynamodb;
 
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.Game;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.GameNotFoundException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Accesses data from a game using {@link Game} to represent the model in DynamoDB.
@@ -16,22 +19,15 @@ public class GameDao {
 
     @Inject
     public GameDao(DynamoDBMapper dynamoDBMapper) {
-        // Question: If we're using @Inject here, I don't think we need the line below, is that right?
         this.dynamoDBMapper = dynamoDBMapper;
     }
 
     public Game saveGame(Game game) {
         this.dynamoDBMapper.save(game);
-        // Question: How do we know if the mapper was able to save the game successfully?
         return game;
     }
 
     public Game getGame (String gameId) {
-        // Question: Should I be passing in the gameId as a UUID and then converting to a string?
-        //  What's the best practice when you know you have one data type, but need to convert to a different
-        //  datatype for purposes like passing to a mapper object? Should we just keep it as the end data type
-        //  we'd need or try to keep it as the original data type until we need to convert it in order to use it
-        //  for the mapper?
         Game game = this.dynamoDBMapper.load(Game.class, gameId);
 
         if (game == null) {
@@ -44,5 +40,7 @@ public class GameDao {
     public List<Game> getAllUpcomingGames () {
         // Question: Not sure how I'd get all the game from DynamoDB
         //  Would I use a dynamoDBMapper.query()?
+        // Note: Yep, need to use .query(), get with Swastik once I'm at this point.
+        return new ArrayList<>();
     }
 }
