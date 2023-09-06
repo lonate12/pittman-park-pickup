@@ -214,7 +214,7 @@ role // string
 ### 7.3 `games`
 ```
 gameId // partition key, string
-datetime // sort key, datetime
+gameTime // sort key, datetime
 location // string
 players // list of strings
 ```
