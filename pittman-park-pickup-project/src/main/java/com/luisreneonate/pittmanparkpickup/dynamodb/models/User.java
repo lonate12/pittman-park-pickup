@@ -13,13 +13,12 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String phoneNumber;
     private String role;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber) {
+    public User(String firstName, String lastName, String email) {
         this.userId = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;

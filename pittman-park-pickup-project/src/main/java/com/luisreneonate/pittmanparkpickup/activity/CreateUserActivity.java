@@ -1,4 +1,4 @@
 package main.java.com.luisreneonate.pittmanparkpickup.activity;
 
-public class CreateUser {
+public class CreateUserActivity {
 }
