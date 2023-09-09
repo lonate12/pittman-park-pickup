@@ -20,6 +20,15 @@ public class ModelConverter {
         //  So, things we might want to do include formatting the LocalDateTime in a specific way, for example
         //  also, recall that DynamoDB return things as null if they're no in the DB, so this is where you could check for things
         //  like that and update fields in the model accordingly
-        return null;
+        //  For our purposes, the Dynamo game model and the API gateway game model are the same, so we'll just
+        //  pass along strings for everything
+
+        return GameModel.builder()
+                .withGameId(game.getGameId())
+                .withGameTime(game.getGameTime())
+                .withLocation(game.getLocation())
+                .withPlayers(game.getPlayers())
+                .withStatus(game.getStatus())
+                .build();
     }
 }

@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import java.util.Objects;
 import java.util.UUID;
 
-@DynamoDBTable(tableName = "users")
+@DynamoDBTable(tableName = "Users")
 public class User {
     private String userId;
     private String firstName;

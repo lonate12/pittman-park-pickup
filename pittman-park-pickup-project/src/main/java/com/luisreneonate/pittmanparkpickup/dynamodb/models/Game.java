@@ -2,29 +2,24 @@ package main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-@DynamoDBTable(tableName = "games")
+@DynamoDBTable(tableName = "Games")
 public class Game {
     private String gameId;
-    private LocalDateTime gameTime;
+    private String gameTime;
     private String location;
     private List<User> players;
     private String status;
 
     public Game() {};
-    public Game(LocalDateTime gameTime, String location) {
+    public Game(String gameTime, String location) {
         this.gameId = UUID.randomUUID().toString();
         this.gameTime = gameTime;
         this.location = location;
-        this.players = new ArrayList<User>();
+        this.players = new ArrayList<>();
     }
 
     @DynamoDBHashKey(attributeName = "gameId")
@@ -36,12 +31,12 @@ public class Game {
         this.gameId = gameId;
     }
 
-    @DynamoDBRangeKey(attributeName = "gameTime")
-    public LocalDateTime getGameTime() {
+    @DynamoDBAttribute(attributeName = "gameTime")
+    public String getGameTime() {
         return gameTime;
     }
 
-    public void setGameTime(LocalDateTime gameTime) {
+    public void setGameTime(String gameTime) {
         this.gameTime = gameTime;
     }
 

@@ -5,13 +5,9 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "gameId"
           AttributeType: "S"
-        - AttributeName: "gameTime"
-          AttributeType: "S"
       KeySchema:
         - AttributeName: "gameId"
           KeyType: "HASH"
-        - AttributeName: "gameTime"
-          KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
       TableName: "Games"
   UsersTable:
