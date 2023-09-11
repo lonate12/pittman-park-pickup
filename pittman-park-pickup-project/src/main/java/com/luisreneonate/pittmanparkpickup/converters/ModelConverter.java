@@ -28,7 +28,7 @@ public class ModelConverter {
                 .withGameTime(game.getGameTime())
                 .withLocation(game.getLocation())
                 .withPlayers(game.getPlayers())
-                .withStatus(game.getStatus())
+                .withStatus(game.getStatus().toString())
                 .build();
     }
 }

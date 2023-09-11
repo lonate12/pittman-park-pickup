@@ -3,7 +3,6 @@ import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class GameModel {
     private String gameId;
@@ -12,9 +11,7 @@ public class GameModel {
     private List<User> players;
     private String status;
 
-    public GameModel() {
-
-    }
+    public GameModel() {}
 
     public GameModel(Builder builder) {
         this.gameId = builder.gameId;

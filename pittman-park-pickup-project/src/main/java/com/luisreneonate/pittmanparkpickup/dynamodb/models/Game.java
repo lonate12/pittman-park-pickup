@@ -3,6 +3,7 @@ package main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 
 import java.util.*;
 
@@ -12,14 +13,25 @@ public class Game {
     private String gameTime;
     private String location;
     private List<User> players;
-    private String status;
+    private GameStatus status;
 
-    public Game() {};
-    public Game(String gameTime, String location) {
-        this.gameId = UUID.randomUUID().toString();
+    public Game() {
+    };
+
+    public Game(String gameTime, List<User> playerList) {
+        this(UUID.randomUUID().toString(), gameTime, "Pittman Park", playerList, GameStatus.ACTIVE);
+    }
+
+    public Game(String gameTime, List<User> playerList, String location) {
+        this(UUID.randomUUID().toString(), gameTime, location, playerList, GameStatus.ACTIVE);
+    }
+
+    public Game(String gameId, String gameTime, String location, List<User> players, GameStatus status) {
+        this.gameId = gameId;
         this.gameTime = gameTime;
         this.location = location;
-        this.players = new ArrayList<>();
+        this.players = players;
+        this.status = status;
     }
 
     @DynamoDBHashKey(attributeName = "gameId")
@@ -58,12 +70,13 @@ public class Game {
         this.players = players;
     }
 
+    @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute(attributeName = "status")
-    public String getStatus() {
+    public GameStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(GameStatus status) {
         this.status = status;
     }
 
