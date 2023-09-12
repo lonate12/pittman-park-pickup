@@ -33,14 +33,6 @@ public class CreateGameActivity implements RequestHandler<CreateGameRequest, Cre
     public CreateGameResult handleRequest(CreateGameRequest createGameRequest, Context context) {
         System.out.println("Received request to create new game");
 
-        // We won't be getting a gameID, we'll generate that when creating the game
-        // We'll get a gameTime, we need to check to make sure the gameTime is after the current localdatetime
-        // Not much validation on the game location. Because it's specific to pittman park, we'll hardcode pittman as the location
-        // Since this is a creation request, we'll assume that the admin creating the game is going to RSVP, so the
-        //  players list will contain the creating admin, by default
-        // The status will be set to Active automatically
-        // So, the only thing we need from the FE is just the localdatetime
-
         // First, let's check to see if the user making the create game request knows the password...
         if (!createGameRequest.getPw().equals("SuperSecretPW1")) {
             throw new InvalidGameAttributeException("Looks like you're not authorised to create a game. Please ask an admin to create the game.");
@@ -48,13 +40,13 @@ public class CreateGameActivity implements RequestHandler<CreateGameRequest, Cre
 
         User requestingUser = userDao.getUser(createGameRequest.getUserId());
         if (requestingUser == null || !requestingUser.getRole().equalsIgnoreCase("admin")) {
-            throw new InvalidGameAttributeException("The requesting user cannot create a game. Please check with an admin to see what the problem is.");
+            throw new InvalidGameAttributeException("You don't have permissions to create a game. Please check with an admin to see what the problem is.");
         }
 
         // This is where we'd do our validation checks
-        LocalDateTime proposedDateTime = LocalDateTime.parse(createGameRequest.getGameTime());
-        LocalDateTime now = LocalDateTime.now();
-        if (!proposedDateTime.isAfter(now)) {
+        long proposedDateTime = Long.parseLong(createGameRequest.getGameTime());
+        long currentTimeInMillis = System.currentTimeMillis();
+        if (proposedDateTime < currentTimeInMillis) {
             throw new InvalidGameAttributeException("The date and time for the game cannot be in the past.");
         }
 
@@ -62,7 +54,7 @@ public class CreateGameActivity implements RequestHandler<CreateGameRequest, Cre
         playerList.add(requestingUser);
 
         // Create game object and save to the DB
-        Game game = new Game(proposedDateTime.toString(), playerList);
+        Game game = new Game(createGameRequest.getGameTime(), playerList);
         Game savedGame = gameDao.saveGame(game);
 
         // Construct new GameModel to return the response with

@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Pittman Park Pickup API
+  description: An API for Rene's Pittman Park Pickup project
+  version: 0.0.1
+servers:
+  - url: http://ppa.api.luisreneonate.com/v1
+    description: Main domain for API
+tags:
+  - name: games
+    description: All things related to the games
+  - name: users
+    description: All things related to the users
+paths:
+  /games:
+    get:
+      tags:
+        - games
+      summary: Returns a list of game objects with ACTIVE status
+      responses:
+        '200':
+          description: A JSON array of game objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      tags:
+        - games
+      summary: Submits a request to create a new game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gameTime:
+                  type: string
+                  description: "A datetime string for the game in ISO 8601"
+                  example: "2023-09-11T07:00:00"
+                userId:
+                  type: string
+                  description: "The userId for the user requesting to create the new game"
+                  example: "0d319292-f4dd-4503-a4b4-158ed33e9258"
+                pw:
+                  type: string
+                  description: "A password that only admins know in order to authenticate that this user has the permissions to create a new game"
+                  example: "SuperSecretPassword"
+      responses:
+        '200':
+          description: A JSON object of the newly created game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /games/{gameId}:
+    get:
+      tags:
+        - games
+      summary: Retrieves the information for a game by gameId
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: string
+            example: "ae20e8b3-e812-4d9e-903a-24d5b7652cc7"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+    put:
+      tags:
+        - games
+      summary: Request to edit a game by gameId with changes sent via the request body
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: string
+            example: "ae20e8b3-e812-4d9e-903a-24d5b7652cc7"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gameTime:
+                  type: string
+                  description: "A string in milliseconds for the time to the game"
+                  example: "1694430000000"
+                userId:
+                  type: string
+                  description: "The userId for the user requesting to update the game"
+                  example: "0d319292-f4dd-4503-a4b4-158ed33e9258"
+                pw:
+                  type: string
+                  description: "A password that only admins know in order to authenticate that this user has the permissions to create a new game"
+                  example: "SuperSecretPassword"
+                location:
+                  type: string
+                  description: "Updated location, if applicable"
+                  example: "The Pavillion"
+                status:
+                  type: string
+                  description: "Updated status of the game, if applicable. Has to be either Active, Played, or Cancelled."
+                  example: "CANCELLED"
+                playerRsvp:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                      description: "Whether to ADD or REMOVE a player from the RSVP list"
+                      example: "ADD"
+                    playerId:
+                      type: string
+                      description: "PlayerId of the player to be added or removed"
+                      example: "0d2265e5-ee1f-4953-87c8-35e74dc18b91"
+      responses:
+        '200':
+          description: "The updated game object"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          example: "0d319292-f4dd-4503-a4b4-158ed33e9258"
+        firstName:
+          type: string
+          example: "Rene"
+        lastName:
+          type: string
+          example: "Onate"
+        email:
+          type: string
+          example: "rene.onate@example.com"
+        role:
+          type: string
+          example: "player"
+    Game:
+      type: object
+      properties:
+        gameId:
+          type: string
+          example: "ae20e8b3-e812-4d9e-903a-24d5b7652cc7"
+        gameTime:
+          type: string
+          example: "1694430000000"
+        status:
+          type: string
+          example: "ACTIVE"
+        location:
+          type: string
+          example: "Pittman Park"
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
