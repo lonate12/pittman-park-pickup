@@ -8,7 +8,6 @@ public class UserModel {
     private String userId;
     private String firstName;
     private String lastName;
-    private String email;
 
     public UserModel() {
     }
@@ -17,7 +16,6 @@ public class UserModel {
         this.userId = builder.userId;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
-        this.email = builder.email;
     }
 
     public String getUserId() {
@@ -44,14 +42,6 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,11 +65,10 @@ public class UserModel {
     public static Builder builder() {
         return new Builder();
     }
-    private static final class Builder {
+    public static final class Builder {
         private String userId;
         private String firstName;
         private String lastName;
-        private String email;
 
         public Builder withUserId(String userIdToUse) {
             this.userId = userIdToUse;
@@ -93,11 +82,6 @@ public class UserModel {
 
         public Builder withLastName(String lastNameToUse) {
             this.lastName = lastNameToUse;
-            return this;
-        }
-
-        public Builder withEmail(String emailToUse) {
-            this.email = emailToUse;
             return this;
         }
 

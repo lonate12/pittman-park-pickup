@@ -146,5 +146,9 @@ public class CreateGameRequest {
             this.userId = userIdToUse;
             return this;
         }
+
+        public CreateGameRequest build() {
+            return new CreateGameRequest(this);
+        }
     }
 }

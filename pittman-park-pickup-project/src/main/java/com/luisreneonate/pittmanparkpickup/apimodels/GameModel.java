@@ -8,7 +8,7 @@ public class GameModel {
     private String gameId;
     private String gameTime;
     private String location;
-    private List<User> players;
+    private List<UserModel> players;
     private String status;
 
     public GameModel() {}
@@ -45,11 +45,11 @@ public class GameModel {
         this.location = location;
     }
 
-    public List<User> getPlayers() {
+    public List<UserModel> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<User> players) {
+    public void setPlayers(List<UserModel> players) {
         this.players = players;
     }
 
@@ -89,7 +89,7 @@ public class GameModel {
         private String gameId;
         private String gameTime;
         private String location;
-        private List<User> players;
+        private List<UserModel> players;
         private String status;
 
         public Builder withGameId(String gameIdToUse) {
@@ -107,7 +107,7 @@ public class GameModel {
             return this;
         }
 
-        public Builder withPlayers(List<User> playersToUse) {
+        public Builder withPlayers(List<UserModel> playersToUse) {
             this.players = playersToUse;
             return this;
         }

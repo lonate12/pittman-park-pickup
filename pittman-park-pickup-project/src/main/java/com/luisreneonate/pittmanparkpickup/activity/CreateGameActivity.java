@@ -13,14 +13,13 @@ import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.InvalidGameAttributeException;
 
 import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateGameActivity implements RequestHandler<CreateGameRequest, CreateGameResult> {
     private final GameDao gameDao;
     private final UserDao userDao;
-    private ModelConverter modelConverter;
+    private final ModelConverter modelConverter;
 
     @Inject
     public CreateGameActivity(GameDao gameDao, UserDao userDao, ModelConverter modelConverter) {
