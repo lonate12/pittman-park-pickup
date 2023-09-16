@@ -93,6 +93,10 @@ paths:
             schema:
               type: object
               properties:
+                gameId:
+                  type: string
+                  description: "The gameId of the game in question"
+                  example: "ae20e8b3-e812-4d9e-903a-24d5b7652cc7"
                 gameTime:
                   type: string
                   description: "A string in milliseconds for the time to the game"
@@ -131,7 +135,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
-
+  /users:
+    post:
+      tags:
+        - users
+      summary: "Allows for creating a new player"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: "First name of the player"
+                  example: "John"
+                lastName:
+                  type: string
+                  description: "Last name of the player"
+                  example: "Doe"
+                email:
+                  type: string
+                  description: "Email of the player"
+                  example: "john.doe@example.com"
+      responses:
+        '200':
+          description: "The newly created player"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: "Newly generated userId"
+                    example: "629b3fef-b6a6-4d01-ba9f-7f5cf1baf095"
+                  firstName:
+                    type: string
+                    description: "First name of the newly created player"
+                    example: "John"
+                  lastName:
+                    type: string
+                    description: "Last name of the newly created player"
+                    example: "Doe"
 
 components:
   schemas:

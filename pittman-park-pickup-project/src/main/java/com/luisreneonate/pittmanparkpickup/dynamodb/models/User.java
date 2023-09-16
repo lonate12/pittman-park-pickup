@@ -2,6 +2,7 @@ package main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
@@ -54,6 +55,7 @@ public class User {
     }
 
     @DynamoDBAttribute(attributeName = "email")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "email-index")
     public String getEmail() {
         return email;
     }

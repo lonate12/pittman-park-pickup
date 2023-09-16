@@ -1,6 +1,7 @@
 package main.java.com.luisreneonate.pittmanparkpickup.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.UserNotFoundException;
 
@@ -36,5 +37,17 @@ public class UserDao {
     public List<User> getAllUsers() {
         // TODO: Get all users
         return new ArrayList<>();
+    }
+
+    public boolean doesUserAlreadyExist(String emailToCheck) {
+        User user = new User();
+        user.setEmail(emailToCheck);
+        // Creating the query
+        DynamoDBQueryExpression<User> queryExpression = new DynamoDBQueryExpression<User>()
+                .withHashKeyValues(user)
+                .withIndexName("email-index")
+                .withConsistentRead(false);
+
+        return this.dynamoDBMapper.query(User.class, queryExpression).size() > 0;
     }
 }
