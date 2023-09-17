@@ -1,9 +1,6 @@
 package main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.*;
 
@@ -43,6 +40,7 @@ public class Game {
         this.gameId = gameId;
     }
 
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = "status-gameTime-index")
     @DynamoDBAttribute(attributeName = "gameTime")
     public String getGameTime() {
         return gameTime;
@@ -70,6 +68,7 @@ public class Game {
         this.players = players;
     }
 
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "status-gameTime-index")
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute(attributeName = "status")
     public GameStatus getStatus() {

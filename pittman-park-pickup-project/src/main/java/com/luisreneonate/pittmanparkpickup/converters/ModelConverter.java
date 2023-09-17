@@ -39,4 +39,14 @@ public class ModelConverter {
                 .withLastName(user.getLastName())
                 .build();
     }
+
+    public List<GameModel> toGameModelList(List<Game> games) {
+        List<GameModel> gameModels = new ArrayList<>();
+
+        for (Game game : games) {
+            gameModels.add(toGameModel(game));
+        }
+
+        return gameModels;
+    }
 }

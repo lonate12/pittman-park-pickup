@@ -2,7 +2,9 @@ package main.java.com.luisreneonate.pittmanparkpickup.dynamodb;
 
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.Game;
+import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.GameStatus;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.GameNotFoundException;
 
 import javax.inject.Inject;
@@ -38,9 +40,14 @@ public class GameDao {
     }
 
     public List<Game> getAllUpcomingGames () {
-        // Question: Not sure how I'd get all the game from DynamoDB
-        //  Would I use a dynamoDBMapper.query()?
-        // Note: Yep, need to use .query(), get with Swastik once I'm at this point.
-        return new ArrayList<>();
+        Game game = new Game();
+        game.setStatus(GameStatus.ACTIVE);
+        // Create the query
+        DynamoDBQueryExpression<Game> queryExpression = new DynamoDBQueryExpression<Game>()
+                .withHashKeyValues(game)
+                .withIndexName("status-gameTime-index")
+                .withConsistentRead(false);
+
+        return this.dynamoDBMapper.query(Game.class, queryExpression);
     }
 }

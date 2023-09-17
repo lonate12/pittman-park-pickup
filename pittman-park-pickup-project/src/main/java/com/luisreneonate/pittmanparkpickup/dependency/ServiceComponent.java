@@ -12,4 +12,5 @@ public interface ServiceComponent {
     GetGameActivity provideGetGameActivity();
     UpdateGameActivity provideUpdateGameActivity();
     CreateUserActivity provideCreateUserActivity();
+    GetAllGamesActivity provideGetAllGamesActivity();
 }
