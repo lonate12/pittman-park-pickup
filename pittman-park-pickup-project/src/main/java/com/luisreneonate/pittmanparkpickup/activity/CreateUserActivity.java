@@ -27,10 +27,10 @@ public class CreateUserActivity implements RequestHandler<CreateUserRequest, Cre
         System.out.println(createUserRequest);
 
         // User that's in the DB
-        boolean doesUserAlreadyExist = userDao.doesUserAlreadyExist(createUserRequest.getEmail());
+        User preExistingUser = userDao.doesUserAlreadyExist(createUserRequest.getEmail());
 
-        if (doesUserAlreadyExist) {
-            throw new UserAlreadyExistsException("This email is already in use. Cannot create a user with this email.");
+        if (preExistingUser != null) {
+            return CreateUserResult.builder().withUser(modelConverter.toUserModel(preExistingUser)).build();
         }
 
         // If not already in the DB, create a new user and save to DB

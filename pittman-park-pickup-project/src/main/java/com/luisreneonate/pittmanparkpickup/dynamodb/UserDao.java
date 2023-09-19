@@ -39,7 +39,7 @@ public class UserDao {
         return new ArrayList<>();
     }
 
-    public boolean doesUserAlreadyExist(String emailToCheck) {
+    public User doesUserAlreadyExist(String emailToCheck) {
         User user = new User();
         user.setEmail(emailToCheck);
         // Creating the query
@@ -47,7 +47,12 @@ public class UserDao {
                 .withHashKeyValues(user)
                 .withIndexName("email-index")
                 .withConsistentRead(false);
+        List<User> daoResponse = this.dynamoDBMapper.query(User.class, queryExpression);
 
-        return this.dynamoDBMapper.query(User.class, queryExpression).size() > 0;
+        if (daoResponse.size() > 0) {
+            return daoResponse.get(0);
+        } else {
+            return null;
+        }
     }
 }
