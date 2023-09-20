@@ -37,6 +37,7 @@ public class ModelConverter {
                 .withUserId(user.getUserId())
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
+                .withRole(user.getRole())
                 .build();
     }
 

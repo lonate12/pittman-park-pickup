@@ -8,6 +8,7 @@ public class UserModel {
     private String userId;
     private String firstName;
     private String lastName;
+    private String role;
 
     public UserModel() {
     }
@@ -16,6 +17,7 @@ public class UserModel {
         this.userId = builder.userId;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
+        this.role = builder.role;
     }
 
     public String getUserId() {
@@ -40,6 +42,14 @@ public class UserModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -69,6 +79,7 @@ public class UserModel {
         private String userId;
         private String firstName;
         private String lastName;
+        private String role;
 
         public Builder withUserId(String userIdToUse) {
             this.userId = userIdToUse;
@@ -82,6 +93,11 @@ public class UserModel {
 
         public Builder withLastName(String lastNameToUse) {
             this.lastName = lastNameToUse;
+            return this;
+        }
+
+        public Builder withRole(String roleToUse) {
+            this.role = roleToUse;
             return this;
         }
 
