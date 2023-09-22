@@ -1,0 +1,45 @@
+[aria-label="three-dots-loading"] {
+    display: block !important;
+}
+
+.welcome-header {
+    margin-bottom: 20px;
+}
+.welcome-header a {
+    color: black;
+}
+
+.attending {
+    border: 6px solid black;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.create-game-btn {
+    margin-top: 16px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.attending-notification {
+    color: green;
+}
+
+.edit-game a {
+    color: black;
+    text-decoration: underline;
+}
+
+.status-dropdown::after {
+    content: none;
+}
+
+.player-item {
+    cursor: pointer;
+    margin-top: 1px;
+}
