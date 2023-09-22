@@ -14,6 +14,7 @@ import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.*;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -101,8 +102,21 @@ public class UpdateGameActivity implements RequestHandler<UpdateGameRequest, Upd
                 gameToUpdate.setStatus(Enum.valueOf(GameStatus.class, updateGameRequest.getStatus()));
             }
 
+            // Player list update
+            if (updateGameRequest.getPlayers() != null) {
+                List<User> updatedPlayerList = new ArrayList<>();
+                for (User player : updateGameRequest.getPlayers()) {
+                    User u = userDao.getUser(player.getUserId());
+                    updatedPlayerList.add(u);
+                }
+                gameToUpdate.setPlayers(updatedPlayerList);
+            }
+
             // After the above, we've looked at all the potential update fields, validated any updated, and updated
             //  the game accordingly. Now, let's save it and return the gamemodel as a response.
+            System.out.println("Number of players in request: " + updateGameRequest.getPlayers());
+            System.out.println("Number of players in updated game: " + gameToUpdate.getPlayers().size());
+
             Game savedGame = gameDao.saveGame(gameToUpdate);
             return new UpdateGameResult(modelConverter.toGameModel(savedGame));
         }

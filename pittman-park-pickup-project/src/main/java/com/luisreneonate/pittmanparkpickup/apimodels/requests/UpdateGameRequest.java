@@ -1,5 +1,8 @@
 package main.java.com.luisreneonate.pittmanparkpickup.apimodels.requests;
 
+import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
+
+import java.util.List;
 import java.util.Objects;
 
 public class UpdateGameRequest {
@@ -10,6 +13,7 @@ public class UpdateGameRequest {
     private String pw;
     private String status;
     private RSVPRequest playerRsvp;
+    private List<User> players;
 
     public UpdateGameRequest() {
     }
@@ -22,6 +26,7 @@ public class UpdateGameRequest {
         this.pw = builder.pw;
         this.status = builder.status;
         this.playerRsvp = builder.playerRsvp;
+        this.players = builder.players;
     }
 
     public String getGameId() {
@@ -80,6 +85,14 @@ public class UpdateGameRequest {
         this.playerRsvp = playerRsvp;
     }
 
+    public List<User> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<User> players) {
+        this.players = players;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,6 +131,7 @@ public class UpdateGameRequest {
         private String pw;
         private String status;
         private RSVPRequest playerRsvp;
+        private List<User> players;
 
         private Builder() {
         }
@@ -154,6 +168,11 @@ public class UpdateGameRequest {
 
         public Builder withPlayerRsvp(RSVPRequest rsvpToUse) {
             this.playerRsvp = rsvpToUse;
+            return this;
+        }
+
+        public Builder withPlayers(List<User> playersToUse) {
+            this.players = playersToUse;
             return this;
         }
 

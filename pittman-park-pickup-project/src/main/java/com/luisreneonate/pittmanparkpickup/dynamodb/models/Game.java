@@ -91,4 +91,15 @@ public class Game {
     public int hashCode() {
         return Objects.hash(getGameId());
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameId='" + gameId + '\'' +
+                ", gameTime='" + gameTime + '\'' +
+                ", location='" + location + '\'' +
+                ", players=" + players +
+                ", status=" + status +
+                '}';
+    }
 }
