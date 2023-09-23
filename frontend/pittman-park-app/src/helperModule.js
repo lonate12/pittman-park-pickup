@@ -18,3 +18,15 @@ export const modalStyles = {
         backgroundColor: "lightgrey"
     }
 }
+
+export function stripSpacesFromAll(obj) {
+    let editedObj = {};
+    for (const [key, value] of Object.entries(obj)) {
+        if (typeof value === "string") {
+            editedObj[key] = value.trim();
+        } else {
+            editedObj[key] = value;
+        }
+    }
+    return editedObj;
+}

@@ -26,7 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync build/ s3://renes-pittman-park-app-bucket"
+    "deploy-frontend": "aws s3 sync build/ s3://renes-pittman-park-app-bucket",
+    "update-lambdas": "aws lambda update-function-code --function-name pittmanParkAppCreateGame --zip-file fileb://../../pittman-park-pickup-project/build/distributions/UnitProject.zip & aws lambda update-function-code --function-name pittmanParkAppGetAllGames --zip-file fileb://../../pittman-park-pickup-project/build/distributions/UnitProject.zip & aws lambda update-function-code --function-name pittmanParkAppGetGame --zip-file fileb://../../pittman-park-pickup-project/build/distributions/UnitProject.zip & aws lambda update-function-code --function-name pittmanParkAppCreateUser --zip-file fileb://../../pittman-park-pickup-project/build/distributions/UnitProject.zip & aws lambda update-function-code --function-name pittmanParkAppUpdateGame --zip-file fileb://../../pittman-park-pickup-project/build/distributions/UnitProject.zip"
   },
   "eslintConfig": {
     "extends": [

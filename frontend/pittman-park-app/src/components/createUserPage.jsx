@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { baseApiUrl } from '../helperModule';
 import { RotatingLines } from 'react-loader-spinner';
-import { axiosConfigObj } from '../helperModule';
+import { axiosConfigObj, stripSpacesFromAll } from '../helperModule';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,12 +19,22 @@ export default function CreateUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
+
         console.log(`First Name: ${formData.firstName}, Last Name: ${formData.lastName}, Email: ${formData.email}`);
+        
         // Setup request data
         const url = `${baseApiUrl}/users`;
 
+        // Proper capitalization and trim white space from ends
+        let requestObj = {};
+        requestObj["firstName"] = formData.firstName.trim().charAt(0).toUpperCase() + formData.firstName.trim().slice(1);
+        requestObj["lastName"] = formData.lastName.trim().charAt(0).toUpperCase() + formData.lastName.trim().slice(1);
+        requestObj["email"] = formData.email.trim();
+
+        console.log(requestObj);
+
         // Submit the post request to create a new user
-        axios.post(url, formData, axiosConfigObj)
+        axios.post(url, requestObj, axiosConfigObj)
             .then((res) => {
                 console.log(res.data.user);
                 window.localStorage.setItem("pittmanParkUser", JSON.stringify(res.data.user));
@@ -39,7 +49,7 @@ export default function CreateUserPage() {
                     Give us a second while we create or find your user...
                 </h1>
                 <h1 className="col-8 offset-2">
-                    <RotatingLines strokeColor="grey"/>
+                    <RotatingLines strokeColor="white"/>
                 </h1>
             </div>
         );

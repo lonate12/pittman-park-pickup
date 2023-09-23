@@ -24,7 +24,6 @@ export default function HomePage({user}) {
 
     function updateRsvp(gameId, currentlyAttending, updateButtonState) {
         const action = currentlyAttending ? "REMOVE" : "ADD";
-        console.log(`Kicked off updateRsvp function. Passing gameID ${gameId} and currentlyAttending as ${currentlyAttending}`);
         axios.put(`${baseApiUrl}/games/${gameId}`,{
             "playerRsvp": {
                 "action": action,
@@ -67,7 +66,7 @@ export default function HomePage({user}) {
                 <h3 className="text-center">Hey, {user.firstName}!</h3>
             </div>
             <ul className={loading ? "list-unstyled col-md-8 offset-md-2 text-center" : "list-unstyled col-lg-8 offset-lg-2 col-12"}>
-                { loading ? <RotatingLines strokeColor="grey"/> : <GameList games={games} userId={user.userId} updateRsvp={updateRsvp}/> }
+                { loading ? <RotatingLines strokeColor="white"/> : <GameList games={games} userId={user.userId} updateRsvp={updateRsvp}/> }
             </ul>
             
         </>

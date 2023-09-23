@@ -122,7 +122,7 @@ export default function EditGame() {
                 <div className="text-center">
                     <h2>{loading ? "Loading details..." : "Updating game..."}</h2>
                     <div className="text-center mt-5">
-                        <RotatingLines strokeColor="grey"/>
+                        <RotatingLines strokeColor="white"/>
                     </div>
                 </div>
             </Modal>

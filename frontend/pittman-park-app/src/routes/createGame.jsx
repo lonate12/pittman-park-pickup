@@ -93,7 +93,7 @@ export default function CreateGame() {
                 <div className="text-center">
                     <h2>Creating the game...give us a moment will you?!</h2>
                     <div className="text-center mt-5">
-                        <RotatingLines strokeColor="grey"/>
+                        <RotatingLines strokeColor="white"/>
                     </div>
                 </div>
             </Modal>
