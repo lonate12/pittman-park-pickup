@@ -61,7 +61,7 @@ export default function HomePage({user}) {
 
     return (
         <>
-            <div className="row">
+            <div className="row app-header">
                 <h1 className="welcome-header text-center col-12 col-md-4 offset-md-4 mb-1"><Link to="/">Pittman Park Pickup</Link></h1>
                 <h3 className="col-12 col-md-4 text-center text-md-end">{user.role === "admin" && <CreateNewGameButton />}</h3>
                 <h3 className="text-center">Hey, {user.firstName}!</h3>

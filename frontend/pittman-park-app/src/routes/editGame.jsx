@@ -179,7 +179,7 @@ export default function EditGame() {
                 <div className="mb-3">
                     <div className="row justify-content-evenly">
                         <button className="btn btn-danger col-11 col-sm-4 mt-2 mt-sm-0"><Link to="/">Cancel</Link></button>
-                        <button type="submit" className="btn btn-primary col-11 col-sm-4">Update Game</button>
+                        <button type="submit" className="btn btn-primary col-11 col-sm-4 mt-2">Update Game</button>
                     </div>
                 </div>
             </form>

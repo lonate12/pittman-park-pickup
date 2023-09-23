@@ -130,7 +130,7 @@ export default function CreateGame() {
                 <div className="mb-3">
                     <div className="row justify-content-evenly">
                         <button className="btn btn-danger col-11 col-sm-4 mt-2 mt-sm-0" name="cancelButton"><Link to="/">Cancel</Link></button>
-                        <button type="submit" className="btn btn-primary col-11 col-sm-4">Create Game</button>
+                        <button type="submit" className="btn btn-primary col-11 col-sm-4 mt-2">Create Game</button>
                     </div>
                 </div>
             </form>

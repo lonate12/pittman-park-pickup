@@ -4,17 +4,21 @@
 
 .welcome-header {
     margin-bottom: 20px;
+    color: white;
 }
 .welcome-header a {
-    color: black;
+    color: white;
+}
+.app-header{
+    color:white;
+}
+
+body {
+    background-color: grey;
 }
 
 .attending {
     border: 6px solid black;
-}
-
-body {
-    background-color: lightgray;
 }
 
 .create-game-btn {
@@ -42,4 +46,8 @@ a {
 .player-item {
     cursor: pointer;
     margin-top: 1px;
+}
+
+.form-label {
+    color: white;
 }
