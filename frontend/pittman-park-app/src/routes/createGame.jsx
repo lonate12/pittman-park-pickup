@@ -64,9 +64,7 @@ export default function CreateGame() {
 
         console.log("Submitting new game request...");
         openModal();
-        setTimeout(() => {
-            closeModal();
-        }, 1000000);
+
         axios.post(
             baseApiUrl + "/games",
             gameRequestObj,
@@ -76,8 +74,8 @@ export default function CreateGame() {
             console.log(res);
             navigate("/");
         }).catch(e => {
-            alert("Something went wrong! The game wasn't created.");
-            return false;
+            console.log(e.response);
+            navigate(`/error?status=${e.response.status}&message=${encodeURI(e.response.data.errorMessage)}`)
         });
     }
 

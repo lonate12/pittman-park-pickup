@@ -10,6 +10,7 @@ import Root from "./routes/root";
 import ErrorPage from './error-page';
 import CreateGame from './routes/createGame';
 import EditGame from './routes/editGame';
+import ApiError from './components/apiError';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,9 @@ const router = createBrowserRouter([
     path: "/games/:gameId/edit",
     element: <EditGame />,
     errorElement: <ErrorPage />
+  }, {
+    path: "/error",
+    element: <ApiError />
   }
 ]);
 

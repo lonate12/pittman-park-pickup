@@ -105,8 +105,8 @@ export default function EditGame() {
             console.log(res.data);
             navigate("/");
         }).catch(e => {
-            alert("Something went wrong! The game wasn't created.");
-            return false;
+            console.log(e);
+            navigate(`/error?status=${e.response.status}&message=${encodeURI(e.response.data.errorMessage)}`);
         });
     }
 
