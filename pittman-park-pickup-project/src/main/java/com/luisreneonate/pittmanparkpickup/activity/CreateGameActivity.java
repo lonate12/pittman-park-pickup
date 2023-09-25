@@ -11,6 +11,7 @@ import main.java.com.luisreneonate.pittmanparkpickup.apimodels.requests.CreateGa
 import main.java.com.luisreneonate.pittmanparkpickup.apimodels.results.CreateGameResult;
 import main.java.com.luisreneonate.pittmanparkpickup.dynamodb.models.User;
 import main.java.com.luisreneonate.pittmanparkpickup.exceptions.InvalidGameAttributeException;
+import main.java.com.luisreneonate.pittmanparkpickup.exceptions.UnauthorizedUserException;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -34,19 +35,19 @@ public class CreateGameActivity implements RequestHandler<CreateGameRequest, Cre
 
         // First, let's check to see if the user making the create game request knows the password...
         if (!createGameRequest.getPw().equals("SuperSecretPW1")) {
-            throw new InvalidGameAttributeException("401 Unauthorized: Looks like you're not authorised to create a game. Please ask an admin to create the game.");
+            throw new UnauthorizedUserException("401 Unauthorized: Looks like you're not authorised to create a game. Please ask an admin to create the game.");
         }
 
         User requestingUser = userDao.getUser(createGameRequest.getUserId());
         if (requestingUser == null || !requestingUser.getRole().equalsIgnoreCase("admin")) {
-            throw new InvalidGameAttributeException("You don't have permissions to create a game. Please check with an admin to see what the problem is.");
+            throw new UnauthorizedUserException("401 Unauthorized: You don't have permissions to create a game. Please check with an admin to see what the problem is.");
         }
 
         // This is where we'd do our validation checks
         long proposedDateTime = Long.parseLong(createGameRequest.getGameTime());
         long currentTimeInMillis = System.currentTimeMillis();
         if (proposedDateTime < currentTimeInMillis) {
-            throw new InvalidGameAttributeException("The date and time for the game cannot be in the past.");
+            throw new InvalidGameAttributeException("400 Bad Request: The date and time for the game cannot be in the past.");
         }
 
         List<User> playerList = new ArrayList<>();

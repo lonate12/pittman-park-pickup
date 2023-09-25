@@ -2,7 +2,6 @@ package main.java.com.luisreneonate.pittmanparkpickup.activity;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import main.java.com.luisreneonate.pittmanparkpickup.apimodels.requests.RSVPRequest;
 import main.java.com.luisreneonate.pittmanparkpickup.apimodels.requests.UpdateGameRequest;
 import main.java.com.luisreneonate.pittmanparkpickup.apimodels.results.UpdateGameResult;
 import main.java.com.luisreneonate.pittmanparkpickup.converters.ModelConverter;
@@ -16,7 +15,6 @@ import main.java.com.luisreneonate.pittmanparkpickup.exceptions.*;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class UpdateGameActivity implements RequestHandler<UpdateGameRequest, UpdateGameResult> {
     private final GameDao gameDao;
@@ -36,10 +34,10 @@ public class UpdateGameActivity implements RequestHandler<UpdateGameRequest, Upd
         //  if it has been played, we won't let any updated happen since it wouldn't make sense.
         Game gameToUpdate = gameDao.getGame(updateGameRequest.getGameId());
         if (gameToUpdate == null) {
-            throw new GameNotFoundException("Could not requested game to update");
+            throw new GameNotFoundException("404 Not Found: Could not requested game to update");
         }
         if (gameToUpdate.getStatus() == GameStatus.PLAYED) {
-            throw new GameAlreadyPlayedException("Cannot update this game, the game has already happened");
+            throw new GameAlreadyPlayedException("400 Bad Request: Cannot update this game, the game has already happened");
         }
 
         // RSVP update process
@@ -55,7 +53,7 @@ public class UpdateGameActivity implements RequestHandler<UpdateGameRequest, Upd
                     gameDao.saveGame(gameToUpdate);
                     return new UpdateGameResult(modelConverter.toGameModel(gameToUpdate));
                 } else {
-                    throw new InvalidGameAttributeException("Can't add a player to a game that's already RSVP'd.");
+                    throw new InvalidGameAttributeException("400 Bad Request: Can't add a player to a game that's already RSVP'd.");
                 }
             }
 
@@ -66,28 +64,28 @@ public class UpdateGameActivity implements RequestHandler<UpdateGameRequest, Upd
                     gameDao.saveGame(gameToUpdate);
                     return new UpdateGameResult(modelConverter.toGameModel(gameToUpdate));
                 } else {
-                    throw new InvalidGameAttributeException("Can't remove a player from a game that hasn't RSVP'd.");
+                    throw new InvalidGameAttributeException("400 Bad Request: Can't remove a player from a game that hasn't RSVP'd.");
                 }
             }
         } else {
             // Game Update Process
             // First, let's check if the user is allowed to request the change
             if (updateGameRequest.getPw() == null) {
-                throw new UnauthorizedUserException("You're not authorized to make the requested change.");
+                throw new UnauthorizedUserException("401 Unauthorized: You're not authorized to make the requested change.");
             }
 
             if (!updateGameRequest.getPw().equalsIgnoreCase("SuperSecretPW1")) {
-                throw new UnauthorizedUserException("You're not authorized to make the requested change.");
+                throw new UnauthorizedUserException("401 Unauthorized: You're not authorized to make the requested change.");
             }
 
             User requestingUser = userDao.getUser(updateGameRequest.getUserId());
             if (requestingUser == null || !requestingUser.getRole().equalsIgnoreCase("admin")) {
-                throw new UserNotFoundException("You're not authorized to make the requested change.");
+                throw new UnauthorizedUserException("401 Unauthorized: You're not authorized to make the requested change.");
             }
             // Next, if it's a gameTime change request, let's make sure it's not in the past
             if (updateGameRequest.getGameTime() != null) {
                 if (System.currentTimeMillis() > Long.parseLong(updateGameRequest.getGameTime())) {
-                    throw new InvalidGameAttributeException("You can't update a game time to be in the past.");
+                    throw new InvalidGameAttributeException("400 Bad Request: You can't update a game time to be in the past.");
                 } else {
                     gameToUpdate.setGameTime(updateGameRequest.getGameTime());
                 }

@@ -28,6 +28,7 @@ public class GetAllGamesActivity implements RequestHandler<GetAllGamesRequest, G
     public GetAllGamesResult handleRequest(GetAllGamesRequest getAllGamesRequest, Context context) {
         System.out.println(getAllGamesRequest.getUserId());
         List<Game> allGames = gameDao.getAllUpcomingGames();
+
         if (allGames.isEmpty()) {
             throw new NoActiveGamesException("No active games scheduled right now.");
         }
