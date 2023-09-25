@@ -45,7 +45,7 @@ export default function CreateUserPage() {
     if (loading) {
         return (
             <div className="row text-center">
-                <h1 className="col-8 offset-2 text-center">
+                <h1 className="col-8 offset-2 text-center" style={{color: "white"}}>
                     Give us a second while we create or find your user...
                 </h1>
                 <h1 className="col-8 offset-2">
@@ -57,7 +57,7 @@ export default function CreateUserPage() {
 
     return (
         <div className="row">
-            <div className="col-8 offset-2 text-center">
+            <div className="col-8 offset-2 text-center" style={{color: "white"}}>
                 <h1>Please fill in the below information to access the Pittman Park Pickup App</h1>
             </div>
             <form onSubmit={handleSubmit}>
@@ -96,7 +96,7 @@ export default function CreateUserPage() {
                         onChange={handleChange}
                         required={true}  
                     />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                    <div id="emailHelp" className="form-text" style={{color:"white"}}>* We'll never share your email with anyone else.</div>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

@@ -34,7 +34,7 @@ public class CreateGameActivity implements RequestHandler<CreateGameRequest, Cre
 
         // First, let's check to see if the user making the create game request knows the password...
         if (!createGameRequest.getPw().equals("SuperSecretPW1")) {
-            throw new InvalidGameAttributeException("Looks like you're not authorised to create a game. Please ask an admin to create the game.");
+            throw new InvalidGameAttributeException("401 Unauthorized: Looks like you're not authorised to create a game. Please ask an admin to create the game.");
         }
 
         User requestingUser = userDao.getUser(createGameRequest.getUserId());
