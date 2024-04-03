@@ -1,6 +1,6 @@
 # Pickup Soccer Game Management App
 
-# Backgroung
+# Background
 In June 2023 I decided to upskill myself by going through the
 [Bloomtech Backend Engineering course.](https://www.bloomtech.com/courses/backend-development)
 The course material was **developed by Amazon** for their 
