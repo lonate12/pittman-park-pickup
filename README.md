@@ -1,6 +1,6 @@
 # Pickup Soccer Game Management App
 
-# Why?
+# Backgroung
 In June 2023 I decided to upskill myself by going through the
 [Bloomtech Backend Engineering course.](https://www.bloomtech.com/courses/backend-development)
 The course material was **developed by Amazon** for their 
@@ -10,16 +10,8 @@ I've learned while in the program.
 
 To see a live instance of the app, feel free to create your own user here: [Pittman Park Pickup Soccer App](http://renes-pittman-park-app-bucket.s3-website-us-east-1.amazonaws.com/)
 
-# What is it?
-I'm an avid soccer player and play in a weekly pickup game every Saturday morning at a local park. Because it's a pickup
-game, players can choose to attend or not up until the last minute. This presents a few different challenges. For example,
-during the winter when the mornings could be very cold, it's possible that you might not have enough players to make a
-game happen. However, you might not know if that is the case until you drive out to the fields only to find out there
-aren't enough players for a game. Conversely, during the warmer months, you could have too many players for just one game.
-In these cases, it would be good to know in advance to help with field setup and equitably splitting up the game into multiple
-games.
-
-This app is an attempt to allow admins to be able to schedule games and allow players to RSVP for a given game so
+# What is it and why?
+This app allows admins to be able to schedule games and allow players to RSVP for a given game so
 admins can plan accordingly. Whether that's letting people know the game is cancelled if there aren't enough players or
 helping admins plan out how many fields to set up and which players get assigned to which game.
 
@@ -27,6 +19,14 @@ There are two overarching personas that would use this app:
 
 * Game Admins
 * Players
+
+I'm an avid soccer player and play in a weekly pickup game every Saturday morning at a local park. Because it's a pickup
+game, players can choose to attend or not up until the last minute. This presents a few different challenges. For example,
+during the winter when the mornings could be very cold, it's possible that you might not have enough players to make a
+game happen. However, you might not know if that is the case until you drive out to the fields only to find out there
+aren't enough players for a game. Conversely, during the warmer months, you could have too many players for just one game.
+In these cases, it would be good to know in advance to help with field setup and equitably splitting up the game into multiple
+games. This prompted the building of the app!
 
 # Technologies Used
 ### Backend
