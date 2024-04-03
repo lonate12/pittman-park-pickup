@@ -1,43 +1,59 @@
-# Learn and Be Curious Project Files
+# Pickup Soccer Game Management App
 
-Welcome to your Learn and Be Curious Project Repository! As you already know, Learn and Be Curious is a unique experience from your other sprints here at Bloomtech. The most significant difference is that instead of being given a partially built project with mastery tasks that you need to complete, you will be creating a project from scratch, putting it onto AWS, and presenting your work.
+## Why?
+In June 2023 I decided to upskill myself by going through the
+[Bloomtech Backend Engineering course.](https://www.bloomtech.com/courses/backend-development)
+The course material was **developed by Amazon** for their 
+[Amazon Technical Academy](https://amazontechnicalacademy.com/) program that takes employees in
+non-tech roles and prepare them to be software engineers at Amazon. This projects serves to demonstrate the application of skills and technologies 
+I've learned while in the program.
 
-We strongly recommend you review this repository's contents before you do any serious planning. Inside, you will find project requirements, templates, and guides that will help you get off to a great start. The requirements for your project are high-level by design. Your project should be unique and something you would be proud to share with others. 
-  
-## How to Use this Repository
+To see a live instance of the app, feel free to create your own user here: [Pittman Park Pickup Soccer App](http://renes-pittman-park-app-bucket.s3-website-us-east-1.amazonaws.com/)
 
-All project files that you use should be inside this repository. If you're working on a team, all team members should have access to the same repository so you can share your files in one place.
+# What is it?
+I'm an avid soccer player and play in a weekly pickup game every Saturday morning at a local park. Because it's a pickup
+game, players can choose to attend or not up until the last minute. This presents a few different challenges. For example,
+during the winter when the mornings could be very cold, it's possible that you might not have enough players to make a
+game happen. However, you might not know if that is the case until you drive out to the fields only to find out there
+aren't enough players for a game. Conversely, during the warmer months, you could have too many players for just one game.
+In these cases, it would be good to know in advance to help with field setup and equitably splitting up the game into multiple
+games.
 
-As we mentioned above, we first recommend becoming familiar with the contents of this repository. If you have questions about the requirements of this project, feel free to reach out to the instructor to get any clarification.
+This app is an attempt to allow admins to be able to schedule games and allow players to RSVP for a given game so
+admins can plan accordingly. Whether that's letting people know the game is cancelled if there aren't enough players or
+helping admins plan out how many fields to set up and which players get assigned to which game.
 
-We've included a template Java project and webpages. Feel free to use these examples as references as you build out your own project.
+There are two overarching personas that would use this app:
 
-## Deadlines
+* Game Admins
+* Players
 
-All project deadlines can be found in the [rubric](project_documents/rubric.md).
-  
-## What Files are in This Repository?
+# Technologies Used
+### Backend
+Java, Amazon DynamoDB
+### Frontend
+JavaScript, React, ReactRouter, Bootstrap
+### Deployment
+AWS, AWS Lambda, Amazon API Gateway, Amazon DynamoDB, Amazon S3
 
-#### [Design Document](project_documents/design_document.md)
+# How did I go about it?
+First step was thinking about what I wanted to build for a midpoint project. I'm passionate about soccer and decided this
+would be a good problem to try to tackle. I put together an initial [design document](./project_documents/design_document.md)
+complete with user stories, scope, proposed tech, etc.
 
-The design document is what you need to complete before you start coding. This document lays out what you will be building and how you will build it, and the more you put into it, the easier your implementation will be.
+From there, I created an initial UML diagram for the model relationships and then got to work. Once the app was in a good spot, I
+created my own `npm run` commands to deploy the backend and the frontend.
 
-#### [Project Rubric](project_documents/rubric.md)
+![Relationship Diagram for project models](./project_documents/uml_diagrams/pickup-soccer.png "Diagram")
 
-The rubric contains the requirements for your project. You will fill out the rubric to show that your project successfully covers all the requirements.
+*Models relationship diagram*
 
-#### [Final Presentation Outline](project_documents/final_presentation_outline.pdf)
+# Reflection
 
-This outline lays out what we expect to see in your final presentation. The outline is more of a guideline, so feel free to do things in a different order and put your style on your presentation. 
+There are plenty of things to improve on here. Overall, given that this project was done halfway through Bloomtech program,
+I received positive feedback on the complexity of the project to that point. On my roadmap in terms of improvements are:
 
-#### [Accomplishment Tracking](project_documents/accomplishment_tracking_template.md)
-
-We encourage you to keep track of your accomplishments throughout your time in Learn and Be Curious. This experience will give you plenty to share during interviews, and having accomplishments written down will help you remember highlights you can share.
-
-#### [Team Charter](project_documents/team_charter.md)
-
-If you are working with a team, you must complete a team charter. This document will establish team norms and expectations, such as how you should communicate your work, how the team will create deadlines, what each person wants to get out of this experience, etc. Building your team charter will help your team work more effectively throughout this project.
-
-#### [Reflection](project_documents/reflection.md)
-
-You will complete your reflection in Canvas, but feel free to see what questions we may ask here.
+* Adding authentication/authorization
+* Improved frontend design (I'm not a designer, so going to see if I can get help with that one!)
+* Address Lambda cold-start problem in the app
+* Update to use SSL

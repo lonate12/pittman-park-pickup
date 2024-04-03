@@ -129,7 +129,7 @@ have the capacity to do more, I'd like to focus on the automated notifications/c
 
 # 5. Proposed Architecture Overview
 
-With regards to tech stack/deployment architecture, I'll use Svelt for the FE and Spring Boot for the BE. DynamoDB for
+With regards to tech stack/deployment architecture, I'll use React for the FE and AWS API Gateway for the BE. DynamoDB for
 the DB.
 
 # 6. API
@@ -223,4 +223,4 @@ players // list of strings
 
 1. Login page
 2. Home page (list of all games)
-3. Game detail page
+3. Game detail/edit page
