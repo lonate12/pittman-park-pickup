@@ -57,3 +57,4 @@ I received positive feedback on the complexity of the project to that point. On 
 * Improved frontend design (I'm not a designer, so going to see if I can get help with that one!)
 * Address Lambda cold-start problem in the app
 * Update to use SSL
+* Trigger system to automatically remove games who's scheduled times are in the past (CRON job? AWS EventBridge?)
