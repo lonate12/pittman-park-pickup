@@ -1,7 +1,17 @@
 # Pickup Soccer Game Management App
 
+**Table of Contents**
+- [Background](#background)
+- [What is it and why?](#what-is-it-and-why)
+- [Technologies used](#technologies-used)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+  - [Deployment](#deployment)
+- [How did I go about it?](#how-did-i-go-about-it)
+- [Reflection](#reflection)
+
 # Background
-In June 2023 I decided to upskill myself by going through the
+In June 2023, I decided to upskill myself by going through the
 [Bloomtech Backend Engineering course.](https://www.bloomtech.com/courses/backend-development)
 The course material was **developed by Amazon** for their 
 [Amazon Technical Academy](https://amazontechnicalacademy.com/) program that takes employees in
@@ -49,7 +59,6 @@ created my own `npm run` commands to deploy the backend and the frontend.
 *Models relationship diagram*
 
 # Reflection
-
 There are plenty of things to improve on here. Overall, given that this project was done halfway through Bloomtech program,
 I received positive feedback on the complexity of the project to that point. On my roadmap in terms of improvements are:
 
